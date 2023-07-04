@@ -117,7 +117,7 @@ def main(ang, engine_path):
         #Calculating Drag based on Drag Coefficient, Air Density, and Velocity
         airspeed = magnitude(velocity[i][0] + wind_speed, velocity[i][1])
         if(not drogue_chute and not main_chute):
-            step_drag = 0.5 * np.interp(position[i][1], ADS[:,0], ADS[:,1]) * Cd[i] * np.pi * tube_radius**2  * airspeed**2
+            step_drag = 0.5 * np.interp(position[i][1], ADS[:,0], ADS[:,1]) * (Cd[i] - 0.3) * np.pi * tube_radius**2  * airspeed**2
             drag[i] = [abs(step_drag * cos(radians(air_angle[i - 1]))) * -copysign(1, velocity[i][0]+wind_speed), abs(step_drag * sin(radians(air_angle[i - 1]))) * -(copysign(1, velocity[i][1]))]
         elif drogue_chute and not main_chute:
             step_drag = 0.5 * np.interp(position[i][1], ADS[:,0], ADS[:,1]) * 1.5 * np.pi * drogue_radius**2 * airspeed**2
@@ -236,5 +236,5 @@ def main(ang, engine_path):
     print("Done!")
     plt.show()
     sleep(30)
-main(5, "L610-1685.csv")
+main(5, "L535-1685.csv")
 plt.show()
